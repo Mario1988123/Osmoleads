@@ -1,215 +1,168 @@
-# 🔍 Osmofilter CRM Leads V2.0
+# Osmoleads v1.0
 
-## 🎉 ¡VERSIÓN MEJORADA!
+Sistema de gestión de leads con búsqueda automatizada en Google.
 
-Sistema completo de gestión de leads con diseño moderno y funcionalidades avanzadas.
+## Descripción
 
----
+Osmoleads es una aplicación web (PWA) para buscar y gestionar leads empresariales. Permite:
 
-## ✨ NUEVAS CARACTERÍSTICAS V2.0
+- Buscar empresas en Google por palabras clave
+- Organizar leads por países y estados
+- Extraer datos de contacto automáticamente (email, teléfono, CIF)
+- Buscar productos por imagen
+- Exportar leads a Excel
+- Gestionar notas y seguimiento de cada lead
 
-### 🎯 **1. Filtros Mejorados**
-- ✅ **Excluye marketplaces** (Amazon, AliExpress, Leroy Merlin, etc.)
-- ✅ **Excluye YouTube y redes sociales**
-- ✅ **Solo dominio principal** - No duplica subdominios ni carpetas
-- ✅ **Sistema de descartados** - Empresas eliminadas no se vuelven a buscar
+## Tecnologías
 
-### 🚀 **2. UI Moderna y Ágil**
-- ✅ **Cambio de estado con 1 click** - Sin modales, directo en el dropdown
-- ✅ **Pestañas separadas** por estado:
-  - Pendientes
-  - Mis Clientes
-  - Clientes de Compañero
-  - En Proceso
-  - Captados
-- ✅ **Diseño moderno** con gradientes y animaciones
-- ✅ **Notificaciones** visuales de acciones
+| Componente | Tecnología |
+|------------|------------|
+| Backend | Python 3.11 + FastAPI |
+| Frontend | React 18 + Vite |
+| Base de datos | PostgreSQL |
+| Estilos | Tailwind CSS |
+| PWA | Vite PWA Plugin |
 
-### 📊 **3. Información de Contacto**
-- ✅ **Email** extraído automáticamente
-- ✅ **Teléfono** detectado en la web
-- ✅ **CIF** encontrado si está disponible
-- ✅ **Todo sin coste adicional** - scraping básico
+## Requisitos
 
-### 📝 **4. Sistema de Notas**
-- ✅ Añadir notas a cada empresa
-- ✅ Visible en la tarjeta de empresa
-- ✅ Editar notas en cualquier momento
+- Python 3.11+
+- Node.js 20+
+- PostgreSQL 15+
+- Cuenta de Google Cloud (para APIs)
 
-### 🔍 **5. Análisis de Keywords**
-- ✅ Detecta palabras clave de las empresas encontradas
-- ✅ Sugiere nuevas keywords para buscar
-- ✅ Productos detectados automáticamente
+## Estructura del proyecto
 
-### 📸 **6. Búsqueda por Imagen**
-- ✅ Interfaz preparada para Google Vision API
-- ✅ Subir foto de producto
-- ✅ Encontrar empresas que lo venden
-
-### 💪 **7. Mejoras Técnicas**
-- ✅ Solo 5 resultados por keyword (50 búsquedas/día vs 100)
-- ✅ Extracción inteligente de información
-- ✅ Base de datos de descartados
-- ✅ Rendimiento optimizado
-
----
-
-## 🎨 DISEÑO
-
-### Antes (V1.0):
-- Tabla simple
-- Sin animaciones
-- Edición con modal
-- Todo junto
-
-### Ahora (V2.0):
-- ✅ Cards modernas con gradientes
-- ✅ Animaciones suaves
-- ✅ Cambio rápido de estado
-- ✅ Organizado por pestañas
-- ✅ Estadísticas visuales
-- ✅ Responsive total
-
----
-
-## 📦 INSTALACIÓN
-
-### Si ya tienes V1.0 instalada:
-
-```bash
-cd C:\Users\Osmofilter\Documents\Osmofilter_leads
+```
+Osmoleads/
+├── backend/                 # API FastAPI
+│   ├── app/
+│   │   ├── api/            # Endpoints REST
+│   │   ├── core/           # Configuración
+│   │   ├── models/         # Modelos SQLAlchemy
+│   │   └── services/       # Lógica de negocio
+│   ├── requirements.txt
+│   └── .env.example
+├── frontend/               # App React
+│   ├── src/
+│   │   ├── components/     # Componentes React
+│   │   ├── pages/          # Páginas
+│   │   ├── services/       # API y store
+│   │   └── styles/         # CSS
+│   ├── package.json
+│   └── vite.config.js
+├── docs/
+│   ├── INSTALACION.md      # Guía de instalación
+│   └── MANUAL_DE_USO.md    # Manual de usuario
+└── README.md
 ```
 
-Elimina todo el contenido EXCEPTO la carpeta `.git`
+## Instalación rápida
 
-Copia los nuevos archivos de V2.0
+### 1. Backend
 
 ```bash
-git add .
-git commit -m "Actualización a V2.0"
-git push origin main
+cd backend
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
+pip install -r requirements.txt
+cp .env.example .env
+# Editar .env con tus credenciales
+uvicorn app.main:app --reload
 ```
 
-### Instalación nueva:
+### 2. Frontend
 
-Sigue las instrucciones del archivo `SETUP.md`
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
----
+### 3. Base de datos
 
-## 🔐 CREDENCIALES
+```sql
+CREATE USER osmoleads_user WITH PASSWORD 'tu_password';
+CREATE DATABASE osmoleads_db OWNER osmoleads_user;
+```
 
-Las mismas que en V1.0:
-- API Key: `AIzaSyCD0ZYbTzL-0jJmafElcnD20TiG4bnQl7I`
-- Search Engine ID: `355217cd922dc41ac`
+## Documentación
 
----
+- [Guía de instalación completa](docs/INSTALACION.md)
+- [Manual de uso](docs/MANUAL_DE_USO.md)
 
-## 🎯 CÓMO USAR
+## Configuración de Google APIs
 
-### Flujo de Trabajo:
+1. Crear proyecto en [Google Cloud Console](https://console.cloud.google.com/)
+2. Habilitar:
+   - Custom Search API
+   - Cloud Vision API (opcional, para búsqueda por imagen)
+3. Crear credenciales (API Key)
+4. Crear motor de búsqueda en [Programmable Search Engine](https://programmablesearchengine.google.com/)
 
-1. **Búsqueda automática diaria** a las 9:00 AM
-2. **Revisa "Pendientes"** - Empresas nuevas encontradas
-3. **Cambia el estado** con 1 click en el dropdown
-4. **Añade notas** si es necesario
-5. **Descarta** empresas no relevantes (no volverán a aparecer)
-6. **Las empresas se mueven** automáticamente a su pestaña
+## Variables de entorno
 
-### Estados:
+### Backend (.env)
 
-- ⏳ **Pendiente**: Recién encontrada, sin revisar
-- ✅ **Captado**: Empresa identificada como potencial
-- 👤 **Mi Cliente**: Tu cliente personal
-- 👥 **Cliente Compañero**: Cliente de otro comercial
-- 🔄 **En Proceso**: Negociación activa
+```env
+DATABASE_URL=postgresql://user:pass@localhost:5432/osmoleads_db
+GOOGLE_API_KEY=tu_api_key
+GOOGLE_SEARCH_ENGINE_ID=tu_search_engine_id
+SECRET_KEY=clave_secreta_larga
+ACCESS_PIN=Osmo1980
+MAX_SEARCHES_DEFAULT=100
+```
 
----
+### Frontend (.env)
 
-## 🗑️ SISTEMA DE DESCARTADOS
+```env
+VITE_API_URL=/api
+VITE_APP_NAME=Osmoleads
+```
 
-Cuando eliminas una empresa:
-- Se guarda en `discarded.json`
-- **No volverá a aparecer** en futuras búsquedas
-- Evita duplicados automáticamente
-- Dominio completo bloqueado
+## Características principales
 
----
+### Gestión de países
+- Crear países con código de idioma para búsquedas localizadas
+- Subir banderas personalizadas
+- Buscar en todos los países a la vez
 
-## 📊 DATOS EXTRAÍDOS
+### Keywords
+- Crear palabras clave por país
+- Categorías: producto, competencia, general
+- Activar/desactivar keywords
+- Estadísticas de rendimiento
 
-Para cada empresa intenta obtener:
-- ✅ Nombre
-- ✅ URL (dominio principal)
-- ✅ Email de contacto
-- ✅ Teléfono
-- ✅ CIF (si está en aviso legal)
-- ✅ Productos/Keywords detectados
-- ✅ Snippet de descripción
+### Leads
+- 5 pestañas: Nuevos, Leads, Dudas, Descartados, Marketplaces
+- Estados personalizables con colores
+- Extracción automática de contacto (email, teléfono, CIF)
+- Sistema de notas con historial
+- Filtros por keyword y estado
+- Vista en tarjetas o listado
+- Exportación a Excel
 
----
+### Análisis
+- Sugerencias automáticas de keywords
+- Análisis de webs guardadas
+- Ranking de keywords por rendimiento
 
-## 🔧 PERSONALIZACIÓN
+### Búsqueda por imagen
+- Subir foto de producto
+- Encontrar webs donde aparece
+- OCR para extraer texto de imágenes
 
-### Añadir Keywords:
-- Ve a pestaña "Keywords"
-- Click en "+ Añadir Keyword"
-- Se usará en la próxima búsqueda
+## Límites de Google
 
-### Cambiar frecuencia:
-Edita `.github/workflows/daily-search.yml` línea 5
+| Concepto | Valor |
+|----------|-------|
+| Búsquedas gratuitas | 100/día |
+| Coste adicional | $5/1000 búsquedas |
+| Vision API | $1.50/1000 imágenes |
 
----
+## Licencia
 
-## 🚀 RENDIMIENTO
+Proyecto privado - Todos los derechos reservados.
 
-- **50 búsquedas/día** (vs 100 en V1.0)
-- **Más precisión** en resultados
-- **Menos descartados** gracias a filtros
-- **0€ gastados** - todo dentro del límite gratis
+## Contacto
 
----
-
-## 📱 RESPONSIVE
-
-- ✅ Funciona en móvil
-- ✅ Funciona en tablet
-- ✅ Funciona en PC
-- ✅ Diseño adaptativo
-
----
-
-## 🔒 SEGURIDAD
-
-- ✅ API Keys en Secrets de GitHub
-- ✅ No se exponen en el código
-- ✅ Repositorio puede ser público (sin riesgo)
-- ✅ Límites de Google Cloud configurados
-
----
-
-## ⚡ PRÓXIMAS MEJORAS POSIBLES
-
-- Integración con Google Vision API completa
-- Exportar a Excel/CSV
-- Envío de emails desde el panel
-- Integración con tu CRM actual
-- Análisis de competencia avanzado
-- Gráficas y estadísticas
-
----
-
-## 🆘 SOPORTE
-
-Si algo no funciona:
-1. Verifica GitHub Actions (debe estar verde ✅)
-2. Comprueba que los Secrets estén configurados
-3. Revisa la consola del navegador (F12)
-4. Lee los logs de GitHub Actions
-
----
-
-**Creado con ❤️ para Osmofilter** 🚰💧
-
-**Versión:** 2.0  
-**Fecha:** Diciembre 2025  
-**Autor:** Sistema automatizado de gestión de leads
+Para soporte técnico o consultas, contactar al desarrollador.
